@@ -1,13 +1,19 @@
 @startuml
 left to right direction
-actor "Student" as student
-rectangle System obslugi studenta {
-  usecase "Zapisz na przedmiot" as UC1
-  usecase "Wypisz z przedmiotu" as UC2
-  usecase "Przegladaj przedmioty" as UC3
-}
-fc --> UC1
-fc --> UC2
-fc --> UC3
-@enduml
 
+actor Student
+
+rectangle "Podgląd przedmiotu" {
+  Student --> (Logowanie)
+  (Logowanie) --> (Wyświetlenie listy przedmiotów)
+  (Wyświetlenie listy przedmiotów) <. (Kliknięcie nazwy przedmiotu) : extends
+  (Kliknięcie nazwy przedmiotu) --> (Wyświetlenie informacji o przedmiocie w modalu)
+}
+
+rectangle "Platforma SOS" {
+  (Logowanie) -|> (Autentykacja)
+  (Wyświetlenie listy przedmiotów) .> (Pobranie listy przedmiotów studenta) : include
+  (Kliknięcie nazwy przedmiotu) .> (Pobranie informacji o przedmiocie) : include
+}
+
+@enduml
