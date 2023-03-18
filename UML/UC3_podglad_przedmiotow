@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+actor "Student" as student
+rectangle System obslugi studenta {
+  usecase "Zapisz na przedmiot" as UC1
+  usecase "Wypisz z przedmiotu" as UC2
+  usecase "Przegladaj przedmioty" as UC3
+}
+fc --> UC1
+fc --> UC2
+fc --> UC3
+@enduml
+
