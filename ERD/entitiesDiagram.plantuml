@@ -1,0 +1,56 @@
+@startuml
+entity "Student" {
+    + Student_ID : int
+    Name : string
+    Email : string
+    Password : string
+    Date_of_Birth : date
+    PESEL : positive int
+}
+
+entity "System obsługi studenta" {
+    + SOS_ID : int
+    Name : string
+    Email : string
+    Password : string
+    Contact_Number : string
+}
+
+entity "Przedmiot" {
+    + Przedmiot_ID : int
+    Name : string
+}
+
+entity "Biblioteka" {
+    + Biblioteka_ID : int
+    Name : string
+    Location : string
+}
+
+entity "Książka" {
+    + Książka_ID : int
+    Title : string
+    Author : string
+    ISBN : string
+}
+
+entity "Prowadzący" {
+    + Prowadzący_ID : int
+    Name : string
+    Email : string
+}
+
+entity "Konto" {
+    + Konto_ID : int
+    Email : string
+    Password : string
+}
+
+Student -- "System obsługi studenta"
+Student -- Przedmiot
+Student -- Biblioteka
+Biblioteka -- Książka
+Prowadzący -- Przedmiot
+"System obsługi studenta" -- Konto
+
+@enduml
