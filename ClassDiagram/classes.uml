@@ -1,0 +1,108 @@
+@startuml
+class Kraj {
+  -Integer id_kraj
+  -String nazwa
+}
+
+class Rola {
+  -Integer id_rola
+  -String nazwa_roli
+}
+
+class Konto_uzytkownika {
+  -Integer id_konto
+  -Integer id_rola
+  -Integer id_kraj
+  -String imie
+  -String drugie_imie
+  -String nazwisko
+  -Integer pesel
+  -String ulica
+  -String miejscowosc
+  -String email
+  -String haslo
+  -Boolean aktywny
+  -Integer ilosc_nieudanych_prob_logowania
+
+  +void zaloguj(String email, String haslo)
+  +void wyloguj()
+  +void zmienHaslo(String noweHaslo)
+  +void zmienRole(Integer id_rola)
+}
+
+class Przedmiot {
+  -Integer id_przedmiot
+  -Integer id_konto
+  -Integer id_sala_wykladowa
+  -String nazwa
+  -String opis_zajec
+  -vector<Date> harmonogram_zajec
+  -vector<Ocena> oceny
+  -Date termin_egzaminu
+
+  +void dodajOcene(Ocena ocena)
+  +void usunOcene(Ocena ocena)
+  +void zmienSale(Integer id_sala_wykladowa)
+  +vector<Date> wyswietlHarmonogram(Integer id_przedmiot)
+}
+
+class Ocena {
+  -Integer id_konto
+  -Integer id_przedmiot
+  -double wartosc
+  -Date data_wpisania_oceny
+}
+
+class PlanZajęć {
+  -Integer id_plan_zajec
+  -vector<Integer> id_przedmiot
+
+  +void dodajPrzedmiot(Przedmiot przedmiot)
+  +void usunPrzedmiot(Integer id_przedmiot)
+}
+
+class SalaWykladowa {
+  -Integer id_sala_wykladowa
+  -String numer_sali
+  -String adres_sali
+}
+
+class Wypozyczenie {
+  -Integer id_wypozyczenie
+  -Integer id_ksiazka
+  -Integer id_konto
+  -Date data_wypozyczenia
+  -Date date_rezerwacji
+}
+
+class Biblioteka {
+  -Integer id_biblioteka
+  -vector<Wypozyczenie> id_wypozyczenie
+
+  +void wypozycz(Ksiazka ksiazka, Konto_uzytkownika osoba)
+  +void zarezerwuj(Ksiazka ksiazka, Konto_uzytkownika osoba)
+  +void oddaj(Ksiazka ksiazka, Konto_uzytkownika osoba)
+  +void dokonajOplaty(Płatność platnosc)
+}
+
+class Ksiazka {
+  -Integer id_ksiazka
+  -String tytuł
+}
+
+class Płatność {
+  -Integer id_platnosc
+  -Integer id_konto
+  -Date data
+  -double wartosc
+}
+
+Rola -- Konto_uzytkownika
+Kraj -- Konto_uzytkownika
+Konto_uzytkownika -- Płatność
+Ksiazka --o Biblioteka
+Wypozyczenie --o Biblioteka
+Przedmiot -- SalaWykladowa
+Przedmiot -- PlanZajęć
+Przedmiot --o Ocena
+@enduml
