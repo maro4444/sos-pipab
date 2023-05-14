@@ -1,4 +1,12 @@
 @startuml
+
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor Brown
+BorderColor DarkGreen
+}
+skinparam shadowing true
+
 class Kraj {
   -Integer id_kraj
   -String nazwa
@@ -29,6 +37,8 @@ class Konto_uzytkownika {
   +void zmienHaslo(String noweHaslo)
   +void zmienRole(Integer id_rola)
 }
+
+
 
 class Przedmiot {
   -Integer id_przedmiot
@@ -78,6 +88,7 @@ class Wypozyczenie {
 class Biblioteka {
   -Integer id_biblioteka
   -vector<Wypozyczenie> id_wypozyczenie
+  -vector<Ksiazka> id_ksiazka
 
   +void wypozycz(Ksiazka ksiazka, Konto_uzytkownika osoba)
   +void zarezerwuj(Ksiazka ksiazka, Konto_uzytkownika osoba)
@@ -97,12 +108,13 @@ class Płatność {
   -double wartosc
 }
 
-Rola -- Konto_uzytkownika
-Kraj -- Konto_uzytkownika
-Konto_uzytkownika -- Płatność
-Ksiazka --o Biblioteka
-Wypozyczenie --o Biblioteka
-Przedmiot -- SalaWykladowa
-Przedmiot -- PlanZajęć
+Konto_uzytkownika }|-- Rola  
+Konto_uzytkownika }|-- Kraj
+Konto_uzytkownika }|-- Płatność
+Ksiazka }|--o Biblioteka
+Wypozyczenie }|--o  Biblioteka
+SalaWykladowa }|-- Przedmiot
+Przedmiot }|-- PlanZajęć
 Przedmiot --o Ocena
+Ocena }|-- Przedmiot
 @enduml
